@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class HomeWork24CollectionsApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(HomeWork24CollectionsApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(HomeWork24CollectionsApplication.class, args);
+    }
 
 }
