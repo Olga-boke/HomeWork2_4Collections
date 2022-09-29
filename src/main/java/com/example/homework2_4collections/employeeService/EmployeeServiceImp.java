@@ -1,10 +1,13 @@
 package com.example.homework2_4collections.employeeService;
 
+import com.example.homework2_4collections.exception.EmployeeAlreadyAddedException;
 import com.example.homework2_4collections.exception.EmployeeNotFoundException;
 import com.example.homework2_4collections.model.Employee;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -16,35 +19,46 @@ public class EmployeeServiceImp implements EmployeeService{
             new Employee("Vasiliy","Pumpkin")
     ));
 
+    @Override
+    public Employee find(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
 
+        if(employees.contains(employee)){
+        return employee;
+    }
+        throw new EmployeeNotFoundException("Сотрудник не найден");
+    }
 
     @Override
-    public Employee findAnEmployee(String name, String surname){
-        for (Employee employee : employees) {
-            if (employee.getFirstName().equals(name) && employee.getLastName().equals(surname)) {
-                return employee;
-            }
+    public Employee add(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+
+        if(employees.contains(employee)){
+            throw new EmployeeAlreadyAddedException(" Такой сотрудник уже есть");
+        }
+        employees.add(employee);
+        return employee;
+    }
+
+    @Override
+    public Employee remove(String firstName, String lastName) {
+        Employee employee = new Employee(firstName, lastName);
+        if (employees.contains(employee)) {
+            employees.remove(employee);
+            return employee;
         }
         throw new EmployeeNotFoundException("Сотрудник не найден");
     }
 
     @Override
-    public boolean addAnEmployee(String name, String surname){
-        for (Employee employee : employees) {
-            if (employee.getFirstName().equals(name) && employee.getLastName().equals(surname)) {
-                throw new EmployeeNotFoundException("Сотрудник с таким именем уже есть");
-            }
-        }
-        return employees.add(new Employee(name,surname));
+    public Collection<Employee> findAll() {
+        return Collections.unmodifiableCollection(employees);
+
     }
 
-    @Override
-    public Employee removeAnEmployee(String name, String surname) {
-        for (int i = 0; i < employees.size(); i++) {
-            if (employees.get(i).getFirstName().equals(name) && employees.get(i).getLastName().equals(surname)) {
-                return employees.remove(i);
-            }
-        }
-        throw new EmployeeNotFoundException("Сотрудник не найден");
-    }
+
 }
+
+
+
+

@@ -4,8 +4,10 @@ import com.example.homework2_4collections.employeeService.EmployeeService;
 import com.example.homework2_4collections.model.Employee;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+import java.util.List;
+
 @RestController
-@ResponseStatus
 @RequestMapping("employee/")
 public class EmployeeController {
     private final EmployeeService employeeService;
@@ -15,20 +17,26 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public boolean addAnEmployee(@RequestParam String name,
-                       @RequestParam String surname) {
-        return employeeService.addAnEmployee(name,surname);
+    public Employee addEmployee(@RequestParam String firstName,
+                       @RequestParam String lastName) {
+        return employeeService.add(firstName,lastName);
     }
     @GetMapping("/remove")
-    public Employee removeAnEmployee(@RequestParam String name,
-                                     @RequestParam String surname) {
-        return employeeService.removeAnEmployee(name, surname);
+    public Employee removeEmployee(@RequestParam String firstName,
+                                     @RequestParam String lastName) {
+        return employeeService.remove(firstName, lastName);
     }
     @GetMapping("/find")
-    public Employee findAnEmployee(@RequestParam String name,
-                                   @RequestParam String surname) {
-        return employeeService.findAnEmployee(name, surname);
+    public Employee findEmployee(@RequestParam String firstName,
+                                   @RequestParam String lastName) {
+        return employeeService.find(firstName, lastName);
     }
+    @GetMapping
+    public Collection<Employee> findAll(){
+       return employeeService.findAll();
+
+    }
+
 
 
 }

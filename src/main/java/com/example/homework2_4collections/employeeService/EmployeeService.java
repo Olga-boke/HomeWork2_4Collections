@@ -2,14 +2,17 @@ package com.example.homework2_4collections.employeeService;
 
 import com.example.homework2_4collections.model.Employee;
 
+import java.util.Collection;
+
 public interface EmployeeService {
 
-    Employee findAnEmployee(String name, String surname);
+    Employee find(String firstName, String lastName);
 
-    boolean addAnEmployee(String name, String surname);
+    Employee add(String firstName, String lastName);
 
-    Employee removeAnEmployee(String name, String surname);
+    Employee remove(String firstName, String lastName);
 
 
+    public Collection<Employee> findAll();
 }
 
